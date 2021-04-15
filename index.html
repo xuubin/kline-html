@@ -15,6 +15,9 @@
         accept=".csv"
         required
       />
+
+      <input type="date" id="startdate" />
+      <input type="date" id="enddate" />
     </div>
     <div id="container" style="height: 95%"></div>
 
@@ -30,10 +33,15 @@
       var kdates = [];
       var kdata = [];
       function generateData(results) {
+        kdates = [];
+        kdata = [];
         var data = results.data;
 
         for (i = 0; i < data.length; i++) {
           var row = data[i];
+          if (!row.time) {
+            continue;
+          }
           kdates.push(
             moment(row.time, "YYYYMMDDhhmm").format("YYYY/MM/DD HH:mm")
           );
@@ -46,7 +54,12 @@
           ]);
         }
 
-        var option = getOption(kdates, kdata);
+        var rangeStart = moment(kdates[0]);
+        var rangeEnd = moment(kdates[kdates.length - 1]);
+        startDateInput.value = rangeStart.format("YYYY-MM-DD");
+        endDateInput.value = rangeEnd.format("YYYY-MM-DD");
+
+        var option = getOption(kdates, kdata, 0, 100);
         if (option && typeof option === "object") {
           myChart.setOption(option);
         }
@@ -54,7 +67,6 @@
 
       var fileInput = document.getElementById("files");
       readFile = function () {
-        console.log("readfile");
         var result = Papa.parse(fileInput.files[0], {
           complete: generateData,
           header: true,
@@ -62,6 +74,33 @@
       };
 
       fileInput.addEventListener("change", readFile);
+
+      selectDate = () => {
+        var rangeStart = moment(kdates[0]);
+        var rangeEnd = moment(kdates[kdates.length - 1]);
+
+        var startTime = moment(startDateInput.value);
+        var endTime = moment(endDateInput.value);
+        var rangeStart = moment(kdates[0]);
+
+        const totalDays = rangeEnd.diff(rangeStart, "days");
+        var startDays = startTime.diff(rangeStart, "days");
+        var endDays = endTime.diff(rangeStart, "days");
+
+        var start = Math.floor((startDays * 100) / totalDays);
+        var end = Math.ceil((endDays * 100) / totalDays);
+
+        var option = getOption(kdates, kdata, start, end);
+        if (option && typeof option === "object") {
+          myChart.setOption(option);
+        }
+      };
+
+      var startDateInput = document.getElementById("startdate");
+      var endDateInput = document.getElementById("enddate");
+
+      startDateInput.addEventListener("change", selectDate);
+      endDateInput.addEventListener("change", selectDate);
     </script>
   </body>
 </html>

@@ -14,7 +14,15 @@ function calculateMA(dayCount, data) {
   return result;
 }
 
-function getOption(dates, data) {
+function getOption(dates, data, start = 0, end = 100) {
+  if (start >= 100 || start <= 0) {
+    start = 0;
+  }
+
+  if (end >= 100 || end <= 0) {
+    end = 100;
+  }
+
   var option = {
     legend: {
       data: ["K", "MA5", "MA10", "MA20", "MA30"],
@@ -89,6 +97,8 @@ function getOption(dates, data) {
         },
         brushSelect: true,
         xAxisIndex: [0, 1],
+        start: start,
+        end: end,
       },
       {
         type: "inside",
