@@ -38,11 +38,11 @@
             moment(row.time, "YYYYMMDDhhmm").format("YYYY/MM/DD HH:mm")
           );
           kdata.push([
-            parseFloat(row.open),
-            parseFloat(row.close),
-            parseFloat(row.low),
-            parseFloat(row.high),
-            parseFloat(row.volume),
+            parseFloat(parseFloat(row.open).toFixed(3)),
+            parseFloat(parseFloat(row.close).toFixed(3)),
+            parseFloat(parseFloat(row.low).toFixed(3)),
+            parseFloat(parseFloat(row.high).toFixed(3)),
+            parseFloat(parseFloat(row.volume).toFixed(3)),
           ]);
         }
 
