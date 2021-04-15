@@ -25,7 +25,7 @@ function getOption(dates, data, start = 0, end = 100) {
 
   var option = {
     legend: {
-      data: ["K", "MA5", "MA10", "MA20", "MA30"],
+      data: ["K", "MA5", "MA10", "MA20", "MA30", "Volume"],
       inactiveColor: "#777",
     },
     tooltip: {
