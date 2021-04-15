@@ -17,7 +17,7 @@ function calculateMA(dayCount, data) {
 function getOption(dates, data) {
   var option = {
     legend: {
-      data: ["日K", "MA5", "MA10", "MA20", "MA30"],
+      data: ["K", "MA5", "MA10", "MA20", "MA30", "Volume"],
       inactiveColor: "#777",
     },
     tooltip: {
@@ -32,19 +32,45 @@ function getOption(dates, data) {
         },
       },
     },
-    xAxis: {
-      type: "category",
-      data: dates,
-      axisLine: { lineStyle: { color: "#8392A5" } },
-    },
-    yAxis: {
-      scale: true,
-      axisLine: { lineStyle: { color: "#8392A5" } },
-      splitLine: { show: false },
-    },
-    grid: {
-      bottom: 80,
-    },
+    xAxis: [
+      {
+        type: "category",
+        data: dates,
+        axisLine: { lineStyle: { color: "#8392A5" } },
+      },
+      {
+        type: "category",
+        data: dates,
+        gridIndex: 1,
+        axisLine: { lineStyle: { color: "#8392A5" } },
+      },
+    ],
+    yAxis: [
+      {
+        scale: true,
+        axisLine: { lineStyle: { color: "#8392A5" } },
+        splitLine: { show: false },
+      },
+      {
+        scale: true,
+        gridIndex: 1,
+        axisLine: { lineStyle: { color: "#8392A5" } },
+        splitLine: { show: false },
+      },
+    ],
+    grid: [
+      {
+        left: "10%",
+        right: "8%",
+        height: "60%",
+      },
+      {
+        left: "10%",
+        right: "8%",
+        top: "73%",
+        height: "16%",
+      },
+    ],
     dataZoom: [
       {
         textStyle: {
@@ -70,7 +96,7 @@ function getOption(dates, data) {
     series: [
       {
         type: "candlestick",
-        name: "日K",
+        name: "K",
         data: data,
         itemStyle: {
           color: "#FD1050",
@@ -118,6 +144,13 @@ function getOption(dates, data) {
         lineStyle: {
           width: 1,
         },
+      },
+      {
+        name: "Volume",
+        type: "bar",
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        data: data.map((i) => i[4]),
       },
     ],
   };

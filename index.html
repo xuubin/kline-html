@@ -18,11 +18,7 @@
     </div>
     <div id="container" style="height: 95%"></div>
 
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"
-    ></script>
-
+    <script src="js/echarts.js"></script>
     <script src="js/papaparse.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/option.js"></script>
@@ -46,6 +42,7 @@
             parseFloat(row.close),
             parseFloat(row.low),
             parseFloat(row.high),
+            parseFloat(row.volume),
           ]);
         }
 
