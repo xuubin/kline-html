@@ -17,7 +17,7 @@ function calculateMA(dayCount, data) {
 function getOption(dates, data) {
   var option = {
     legend: {
-      data: ["K", "MA5", "MA10", "MA20", "MA30", "Volume"],
+      data: ["K", "MA5", "MA10", "MA20", "MA30"],
       inactiveColor: "#777",
     },
     tooltip: {
@@ -88,9 +88,11 @@ function getOption(dates, data) {
           },
         },
         brushSelect: true,
+        xAxisIndex: [0, 1],
       },
       {
         type: "inside",
+        xAxisIndex: [0, 1],
       },
     ],
     series: [
